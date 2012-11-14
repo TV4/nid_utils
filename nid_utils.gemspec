@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Nid utils is used for creating common name for tags}
   s.description = %q{Nid utils is used for creating common name for tags}
 
-  s.files       = Dir.glob("lib/**/*") + %w(Gemfile nid_utils.gemspec README.md)
+  s.files       = Dir.glob("lib/**/*") + %w(Gemfile nid_utils.gemspec README.markdown)
   s.test_files  = Dir.glob('spec/*')
 
   s.add_runtime_dependency 'activesupport', '~> 3.0'
