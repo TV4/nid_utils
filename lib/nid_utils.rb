@@ -26,8 +26,6 @@ module NidUtils
       lower_case(text).gsub('_','-').gsub(' ','-').gsub(/[^0-9a-zåäö-]/, '').gsub(/-/, ' ').squish.gsub(/ /, '-')
     end
 
-    private
-
     def normalize_chars(string)
       return string unless string.present?
       I18n.backend.transliterate(:se_nid_utils,string)
