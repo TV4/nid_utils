@@ -2,6 +2,23 @@
 module NidUtils
   extend ActiveSupport::Concern
 
+  included do
+    I18n.backend.store_translations(:se_nid_utils, :i18n => {
+    :transliterate => {
+      :rule => {
+          å: "å",
+          ä: "ä",
+          ö: "ö",
+          Å: "Å",
+          Ä: "Ä",
+          Ö: "Ö",
+          æ: "ä",
+          ø: "ö",
+          Æ: "Ä",
+          Ø: "Ö"
+        }}})
+  end
+
   module ClassMethods
     def nid_case(text)
       return text unless text.present?
@@ -13,23 +30,7 @@ module NidUtils
 
     def normalize_chars(string)
       return string unless string.present?
-      I18n.backend.store_translations(:se, :i18n => {
-      :transliterate => {
-        :rule => {
-            å: "å",
-            ä: "ä",
-            ö: "ö",
-            Å: "Å",
-            Ä: "Ä",
-            Ö: "Ö",
-            æ: "ä",
-            ø: "ö",
-            Æ: "Ä",
-            Ø: "Ö"
-          }}})
-      I18n.locale = :se
-
-      I18n.transliterate(string)
+      I18n.backend.transliterate(:se_nid_utils,string)
     end
 
     def lower_case(text)
