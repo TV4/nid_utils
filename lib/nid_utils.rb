@@ -81,7 +81,7 @@ module NidUtils
 
     def transliterate(string)
       string.gsub(/[^\x00-\x7f]/u) do |char|
-        DEFAULT_APPROXIMATIONS[char] || replacement || DEFAULT_REPLACEMENT_CHAR
+        DEFAULT_APPROXIMATIONS[char] || DEFAULT_REPLACEMENT_CHAR
       end
     end
 
