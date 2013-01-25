@@ -16,8 +16,7 @@ Gem::Specification.new do |s|
   s.files       = Dir.glob("lib/**/*") + %w(Gemfile nid_utils.gemspec README.markdown)
   s.test_files  = Dir.glob('spec/*')
 
-  s.add_runtime_dependency 'activesupport', '~> 3.0'
-  s.add_runtime_dependency 'i18n'
+  s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec', '~> 2.7.0'
   s.add_development_dependency 'ci_reporter', '1.6.5'
   s.add_development_dependency 'simplecov'

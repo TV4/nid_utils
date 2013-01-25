@@ -5,9 +5,7 @@ include NidUtils
 describe "nid" do
 
   context "nid should be created with lower case and space replaced with dash" do
-    before do
-      I18n.locale = 'sv-SE'
-    end
+
     it "should change space to dash" do
       nid_case('foo bar bee').should == 'foo-bar-bee'
     end

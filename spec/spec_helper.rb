@@ -2,7 +2,6 @@ require 'simplecov'
 require 'rubygems'
 require 'bundler/setup'
 require 'rspec'
-require 'active_support/core_ext'
 
 require 'nid_utils'
 
