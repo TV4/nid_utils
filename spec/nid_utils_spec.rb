@@ -2,12 +2,16 @@
 require "spec_helper"
 include NidUtils
 
+class NidCaser
+  include NidUtils
+end
+
 describe "nid" do
 
   context "nid should be created with lower case and space replaced with dash" do
 
     it "should change space to dash" do
-      nid_case('foo bar bee').should == 'foo-bar-bee'
+      NidCaser.nid_case('foo bar bee').should == 'foo-bar-bee'
     end
 
     it "should downcase all chars" do

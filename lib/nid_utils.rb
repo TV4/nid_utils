@@ -51,51 +51,61 @@ module NidUtils
     "Ž"=>"Z", "ž"=>"z"
   }
 
+  def self.included(base)
+    base.extend(ClassMethods)
+  end
+
   def nid_case(text)
-    return text unless present?(text)
-    text = normalize_chars(text)
-    squish(lower_case(text).gsub('_','-').gsub(' ','-').gsub(/[^0-9a-zåäö-]/, '').gsub(/-/, ' ')).gsub(/ /, '-')
+    self.class.nid_case(text)
   end
 
-  private
-
-  def normalize_chars(text)
-    return text unless present?(text)
-    transliterate(text)
-  end
-
-  def lower_case(text)
-    return text unless present?(text)
-    text.tr('ÅÄÖ', 'åäö').downcase
-  end
-
-  def transliterate(string)
-    string.gsub(/[^\x00-\x7f]/u) do |char|
-      DEFAULT_APPROXIMATIONS[char] || replacement || DEFAULT_REPLACEMENT_CHAR
+  module ClassMethods
+    def nid_case(text)
+      return text unless present?(text)
+      text = normalize_chars(text)
+      squish(lower_case(text).gsub('_','-').gsub(' ','-').gsub(/[^0-9a-zåäö-]/, '').gsub(/-/, ' ')).gsub(/ /, '-')
     end
-  end
 
-  #let's take some more methods from rails!
-  # from activesupport/core_ext/boject/blank.rb
-  def blank?(text)
-    text.respond_to?(:empty?) ? text.empty? : !text
-  end
+    private
 
-  # An object is present if it's not <tt>blank?</tt>.
-  def present?(text)
-    !blank?(text)
-  end
+    def normalize_chars(text)
+      return text unless present?(text)
+      transliterate(text)
+    end
 
-  #and from activesupport/core_ext/string/filter.rb
-  def squish(text)
-    squish!(text.dup)
-  end
+    def lower_case(text)
+      return text unless present?(text)
+      text.tr('ÅÄÖ', 'åäö').downcase
+    end
 
-  # Performs a destructive squish. See String#squish.
-  def squish!(text)
-    text.strip!
-    text.gsub!(/\s+/, ' ')
-    text
+    def transliterate(string)
+      string.gsub(/[^\x00-\x7f]/u) do |char|
+        DEFAULT_APPROXIMATIONS[char] || replacement || DEFAULT_REPLACEMENT_CHAR
+      end
+    end
+
+    #let's take some more methods from rails!
+    # from activesupport/core_ext/boject/blank.rb
+    def blank?(text)
+      text.respond_to?(:empty?) ? text.empty? : !text
+    end
+
+    # An object is present if it's not <tt>blank?</tt>.
+    def present?(text)
+      !blank?(text)
+    end
+
+    #and from activesupport/core_ext/string/filter.rb
+    def squish(text)
+      squish!(text.dup)
+    end
+
+    # Performs a destructive squish. See String#squish.
+    def squish!(text)
+      text.strip!
+      text.gsub!(/\s+/, ' ')
+      text
+    end
   end
 
 end
