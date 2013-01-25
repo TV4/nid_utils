@@ -60,10 +60,16 @@ module NidUtils
   end
 
   module ClassMethods
+
     def nid_case(text)
       return text unless present?(text)
       text = normalize_chars(text)
       squish(lower_case(text).gsub('_','-').gsub(' ','-').gsub(/[^0-9a-zåäö-]/, '').gsub(/-/, ' ')).gsub(/ /, '-')
+    end
+    
+    def lower_case(text)
+      return text unless present?(text)
+      text.tr('ÅÄÖ', 'åäö').downcase
     end
 
     private
@@ -71,11 +77,6 @@ module NidUtils
     def normalize_chars(text)
       return text unless present?(text)
       transliterate(text)
-    end
-
-    def lower_case(text)
-      return text unless present?(text)
-      text.tr('ÅÄÖ', 'åäö').downcase
     end
 
     def transliterate(string)
