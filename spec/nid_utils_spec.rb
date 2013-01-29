@@ -14,6 +14,14 @@ describe "nid" do
       NidCaser.nid_case('foo bar bee').should == 'foo-bar-bee'
     end
 
+    it "should nid_case nil to nil" do
+      nid_case(nil).should be_nil
+    end
+
+    it "should nid_case '' to ''" do
+      nid_case("").should == ""
+    end
+
     it "should downcase all chars" do
       nid_case('ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ').should == 'abcdefghijklmnopqrstuvwxyzåäö'
     end
