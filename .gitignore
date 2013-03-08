@@ -1,4 +1,11 @@
-.idea
-pkg
-spec/reports
-coverage
+/pkg
+/spec/reports
+/coverage
+/bin
+
+# IntelliJ
+/.idea
+
+# Emacs
+*~
+
