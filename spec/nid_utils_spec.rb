@@ -61,4 +61,29 @@ describe "nid" do
     end
 
   end
+
+  context "can determine that some things aren't nids" do
+    it "accepts nothingness" do
+      possible_nid?('').should be_true
+      possible_nid?(nil).should be_true
+    end
+
+    it "accepts åäö" do
+      possible_nid?('räksmörgås').should be_true
+    end
+
+    it "rejects strange letters" do
+      possible_nid?('dürén-ibrahimović').should be_false
+    end
+
+    it "rejects non-letters" do
+      possible_nid?('foo bar').should be_false
+      possible_nid?('foo/bar').should be_false
+      possible_nid?('foo\n').should be_false
+    end
+
+    it "rejects upper-case letters" do
+      possible_nid?('FOO').should be_false
+    end
+  end
 end
