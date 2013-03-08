@@ -51,6 +51,8 @@ module NidUtils
     "Ž"=>"Z", "ž"=>"z"
   }
 
+  UNWANTED_CHARACTERS_PATTERN = /[^0-9a-zåäö-]/
+
   def self.included(base)
     base.extend(ClassMethods)
   end
@@ -59,14 +61,23 @@ module NidUtils
     self.class.nid_case(text)
   end
 
+  def possible_nid?(candidate)
+    self.class.possible_nid?(candidate)
+  end
+
   module ClassMethods
 
     def nid_case(text)
       return text unless present?(text)
       text = normalize_chars(text)
-      squish(lower_case(text).gsub('_','-').gsub(' ','-').gsub(/[^0-9a-zåäö-]/, '').gsub(/-/, ' ')).gsub(/ /, '-')
+      squish(lower_case(text).gsub('_','-').gsub(' ','-').gsub(UNWANTED_CHARACTERS_PATTERN, '').gsub(/-/, ' ')).gsub(/ /, '-')
     end
-    
+
+    def possible_nid?(candidate)
+      return true if candidate.nil?
+      !(candidate =~ UNWANTED_CHARACTERS_PATTERN)
+    end
+
     def lower_case(text)
       return text unless present?(text)
       text.tr('ÅÄÖ', 'åäö').downcase
