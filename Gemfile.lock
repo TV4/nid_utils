@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nid_utils (1.5.0)
+    nid_utils (1.6.0)
 
 GEM
   remote: http://rubygems.org/
