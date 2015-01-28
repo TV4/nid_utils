@@ -1,10 +1,11 @@
 require 'rake/clean'
 require 'rspec/core/rake_task'
 require 'ci/reporter/rake/rspec'
+require 'bundler'
 
 Bundler::GemHelper.install_tasks
 
-CLEAN.add('coverage') 
+CLEAN.add('coverage')
 CLEAN.add('spec/reports')
 CLEAN.add('pkg')
 
