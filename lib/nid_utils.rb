@@ -87,7 +87,13 @@ module NidUtils
 
     def normalize_chars(text)
       return text unless present?(text)
-      transliterate(text.encode('UTF-8'))
+      string =
+        if text.valid_encoding?
+          text
+        else
+          text.force_encoding('ISO-8859-1').encode('UTF-8')
+        end
+      transliterate(string)
     end
 
     def transliterate(string)
