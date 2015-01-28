@@ -8,6 +8,7 @@ require 'nid_utils'
 RSpec.configure do |config|
 
   config.mock_with :rspec
-  
+  config.color = true
+
 end
 
