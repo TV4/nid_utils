@@ -60,12 +60,9 @@ describe "nid" do
       expect(nid_case(" Fångarna     på  fortet   ")).to eq 'fångarna-på-fortet'
     end
 
-    it 'converts ISO input to UTF-8' do
-      iso_encoded_nid = 'nöje'.encode('ISO-8859-1', 'UTF-8')
-      expect(iso_encoded_nid.encoding.name).to eq 'ISO-8859-1'
-      nid_cased_nid = nid_case(iso_encoded_nid)
-      expect(nid_cased_nid.encoding.name).to eq 'UTF-8'
-      expect(nid_cased_nid).to eq 'nöje'
+    it 'attempts to convert ISO-8859-1 string forced into UTF-8 back to valid UTF-8' do
+      badly_encoded_nid = 'nöje'.encode('ISO-8859-1', 'UTF-8').force_encoding('UTF-8')
+      expect(nid_case(badly_encoded_nid)).to eq 'nöje'
     end
   end
 
